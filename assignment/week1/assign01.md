@@ -9,3 +9,5 @@ An embedded system could be built using these two relatively low cost, high inte
 This system would be more useful with integration of a BLE-enabled microcontroller, like the Nordic NRF52840, which would allow communication of metrics to a smartphone app. This is slightly beyond the scope of the system described here, but would be a valuable add. 
 
 Pictured below is a block diagram of the system. 
+
+![](MESBlockDiagram.png)
