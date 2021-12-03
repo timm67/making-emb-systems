@@ -8,4 +8,4 @@ STM32F411
 ### Does it have a floating point unit?
 ### If it has an ADC, what are the features?
 
-[](./blackpill-pinout.png)
+![blackpill pinout](./blackpill-pinout.png)
