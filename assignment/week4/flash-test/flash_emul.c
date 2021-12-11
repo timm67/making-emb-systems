@@ -20,7 +20,7 @@
 typedef struct _page_t
 {
 	int page_erased = FALSE;
-	uint8_t data[256];
+	uint8_t data[PAGE_SIZE];
 } page_t;
 
 page_t *page_list = NULL;
@@ -41,7 +41,7 @@ void sFLASH_Init(void)
 {
 	init_done = TRUE;
 
-	page_list = malloc(sizeof(page_t) * 4096)
+	page_list = malloc(sizeof(page_t) * PAGES_IN_PART)
 }
 
 void sFLASH_EraseSector(uint32_t SectorAddr)
@@ -55,11 +55,13 @@ void sFLASH_EraseSector(uint32_t SectorAddr)
 
 	// ensure sector addr is 16 page aligned
 	if (SectorAddr % (PAGE_SIZE*PAGES_IN_SECTOR))
+		printf("__FUNCTION__: SectorAddr not aligned: %08x\n", SectorAddr);
 		// TODO: assert address error
 		return;
 
-	// if a page is contained in a sector, mark it as erased
+	// for pages within the sector, mark them as erased
 	page_num = SectorAddr / (PAGE_SIZE*PAGES_IN_SECTOR);
+	printf("__FUNCTION__: page number to start: %08x\n", page_num);
 	for(i=0; i<PAGES_IN_SECTOR; i++)
 	{
 		ppage = GET_PAGE(page_num, i);
@@ -75,6 +77,8 @@ void sFLASH_EraseBulk(void)
 	if (init_done == FALSE)
 		return; // TODO: assert an error
 
+	printf("__FUNCTION__: entry\n");
+
 	// mark all pages in list as erased; if not in list, assume it is erased
 	for(i=0; i<PAGES_IN_PART; i++)
 	{
@@ -87,12 +91,21 @@ void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWr
 {
 	page_t *ppage;
 	int page_num;
+	int offset_in_page;
 
-	if ((init_done == FALSE) || (NumByteToWrite > 256))
+
+	if ((init_done == FALSE) || (NumByteToWrite > 256) || (pBuffer == NULL))
+	{
+		printf("__FUNCTION__: page number to start: %08x\n", page_num);
 		return; // TODO: assert an error
+	}
 
 	// see if page is already written
 	page_num = WriteAddr / PAGES_IN_PART;
+	offset_in_page = WriteAddr % 256;
+
+	printf("__FUNCTION__: page_num[%08x] offset_in_page[%08x]\n", page_num, offset_in_page);
+	return; // TODO: assert an error
 
 	ppage = GET_PAGE(page_num, 0);
 
@@ -103,7 +116,7 @@ void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWr
 	// if not written, assume it is erased, add data
 	ppage->page_erased = FALSE;
 
-	bcopy(pBuffer, ppage->data, NumByteToWrite);
+	bcopy(pBuffer, (char *)(ppage->data + offset_in_page), NumByteToWrite);
 }
 
 void sFLASH_WriteBuffer(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
@@ -122,11 +135,7 @@ void sFLASH_ReadBuffer(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRe
 
 uint32_t sFLASH_ReadID(void)
 {
-	if (init_done == FALSE)
-		return; // TODO: assert an error
-
-	// TODO: put in real ID
-	return 0x00efabba; // fake mem/capacity
+	return 0x00ef4014;
 }
 
 void sFLASH_StartReadSequence(uint32_t ReadAddr)
