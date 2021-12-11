@@ -1,4 +1,4 @@
-all: flash_emul.o main.o libunity.a
+all : main.o flash_emul.o libunity.a
 	gcc -o main main.o flash_emul.o libunity.a 
 
 main.o : main.c

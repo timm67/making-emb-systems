@@ -12,10 +12,10 @@
 #define PAGES_IN_SECTOR (16)
 #define PAGE_SIZE (256)
 
-
 // 1MByte device 
 // 4K pages in part, 256 bytes each, 16 pages per sector
 // 256 erasable sectors in part, 16 erasable blocks
+// could malloc data as well to conserve heap
 
 typedef struct _page_t
 {
@@ -25,7 +25,7 @@ typedef struct _page_t
 
 page_t *page_list = NULL;
 
-#define GET_PAGE(num, offset) (&(page_list[(num)+(offset)]))
+#define GET_PAGE(num, offset) (page_list[(num)+(offset)])
 
 static int init_done = FALSE;
 static int write_enable = FALSE;
