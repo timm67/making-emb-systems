@@ -1,4 +1,4 @@
-### Questions
+## Questions
 
 * What are the hardware registers that cause the LED to turn on and off? (From the processor manual, don’t worry about initialization.) 
 
@@ -33,6 +33,48 @@ In my case, I used an interrupt (rising edge) on the gpio connected to the butto
 
 Having the ISR copy the register value into a variable, which you could put a debugger watch on would probably be the best way.
 
-### Button video
+## Button video
 
 !()[button_video.gif] 
+
+
+## Code
+
+Here is the code that does most of the work, although it's only one line, setting the global event flag by overriding the external input interrupt handler. The handler checks to see if it's the button gpio, then sets the global event flag to defer processing out of interrupt context. 
+
+```
+//
+// Interrupt handler for button press (GPIO_PIN_0)
+//
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+   if (GPIO_Pin == GPIO_PIN_0)
+   {
+      osEventFlagsSet(ioEventsHandle, EVENT_FLAG_BUTTON);
+   }
+}
+```
+
+This decouples the interrupt from a majority of the processing done in non-interrupt context. I didn't do much to debounce the button as the `osDelay(1)` provides delay after the event occurs, allowing for settling time. This is a FreeRTOS task. 
+
+```
+  for(;;)
+  {
+      eventFlags = osEventFlagsGet(ioEventsHandle);
+      if (eventFlags & 0x00000001U)
+      {
+         ledState++;
+         if (ledState % 2)
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+         else
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+         osEventFlagsClear(ioEventsHandle, 0x00000001U);
+      }
+
+      // time to debounce the button and throttle event rate
+      osDelay(10); // always give a time slice to the scheduler 
+      
+      // ledTaskPoll(NULL);
+  }
+```
