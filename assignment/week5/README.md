@@ -25,7 +25,7 @@ if *((volatile uint32_t *)0x40020010) & (1 << 0)
 else
    button_pressed = true;
 
-``
+```
 
 In my case, I used an interrupt (rising edge) on the gpio connected to the button to set an event flag in FreeRTOS. This is accomplished by overriding the weak reference for `void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)`. The method checks for `GPIO_PIN0` as an argument passed in, and if that is the case, sets a FreeRTOS event flag via `osEventFlagsSet()`. Another thread looks at this value, changes the LED state if it is set and clears the event flag via osEventFlagsClear(). There is a delay of at least one scheduler tick involved in this process, and can be increased to prevent bouncing as showing up as multiple events. 
 
