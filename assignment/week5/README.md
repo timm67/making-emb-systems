@@ -35,4 +35,4 @@ Having the ISR copy the register value into a variable, which you could put a de
 
 ### Button video
 
-!()[button_video.gif] 
+![](button_video.gif) 
