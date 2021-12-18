@@ -35,7 +35,7 @@ Having the ISR copy the register value into a variable, which you could put a de
 
 ## Button video
 
-!()[button_video.gif] 
+![](button_video.gif)
 
 
 ## Code
@@ -78,4 +78,3 @@ This decouples the interrupt from a majority of the processing done in non-inter
       // ledTaskPoll(NULL);
   }
 ```
-![](button_video.gif) 
