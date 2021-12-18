@@ -78,16 +78,3 @@ This decouples the interrupt from a majority of the processing done in non-inter
       // ledTaskPoll(NULL);
   }
 ```
-## Easy but important
-
-One thing that I always start out any embedded project with is my command line interface. It's looks trivial and is relatively simple -- I wrote it for an MSP430 application 20 years ago (hard to believe; time flies). But it allows you to register handlers in the different modules that you create and debug/exercise the system at a high level. 
-
-These are the commands when nothing else is registered, but more commands will be added. The echo command switches between human and machine-to-machine communications as the host talked to the micro via the same serial interface. 
-```
--> help
-help: help [command]
-h: h [command]
-echo: echo [{0 | n(o) | N(o)} {1 | y(es) | Y(es)}]
-
--> 
-```
