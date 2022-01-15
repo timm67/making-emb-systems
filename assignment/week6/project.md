@@ -36,7 +36,7 @@ https://github.com/olikraus/u8g2/wiki
 
 ### Describe code you re-used from other sources, including the licenses for those 
 
-STM32 HAL Device Driver framework, FreeRTOS, and the display graphics library are open source components that I plan to employ in this project. 
+STM32 HAL Device Driver framework, FreeRTOS, and the display graphics library are open source components that I plan to employ in this project. For FreeRTOS, I am using the CMSIS v2 API, which is documented well here: https://www.keil.com/pack/doc/CMSIS/RTOS2/html/index.html
 
 ### Diagram(s) of the architecture 
 
