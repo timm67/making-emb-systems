@@ -1,22 +1,22 @@
 ## Application description 
 
-This application is a low throughput biometrics application. I am using an SpO2/heart rate sensor from Maxim and possibly a non-contact Infrared thermometer. One idea I had was to use a sophisticated algorithm to determine heart rate variance and coach breathing to lower this value. Another idea was to have a straightforward combination of the two sensors to indicate parameters for screening for illnesses that may affect SpO2 and temperature. I will probably due the latter due to time limitation and the specialized nature of HRV algorithms. 
+This application is a low throughput biometrics application. I am using an SpO2/heart rate sensor from Maxim and possibly a non-contact Infrared thermometer. One idea I had was to use a sophisticated algorithm to determine heart rate variability and coach breathing to optimize this value. Another idea is to have a straightforward combination of the two sensors to indicate parameters for screening for illnesses that may affect SpO2 and temperature. I will probably due the latter due to time limitation and the specialized nature of HRV algorithms. 
 
 ## Hardware description 
 
-For a processor/platform, I chose a breadboard friendly module with an STM32F411CEU6 processor on it. This processor is capable of running up to 100MHz and has a floating point unit. This will be useful if I extend the project with a more sophisticated algorithm in the future. 
+For a processor/platform, I chose a breadboard friendly module with an STM32F411CEU6 processor on it. This processor is a Cortex M4F capable of running up to 100MHz and has a floating point unit. This will be useful if I extend the project with a more sophisticated algorithm in the future. I am running it at 25 MHz and performance is fine. The processor has 128KB of SRAM, which will come in handy when using FreeRTOS as it statically allocates a lot of structures. 
 
-In addition to the sensors, I plan to add an I2C OLED display if there is time. This would allow for more sophisticated user interaction. If I am not able to integrate this, I will use Neopixel, or some other addressable LED to give user feedback (i.e. finger is moving too much to get an accurate SpO2/heart rate reading). 
+In addition to the sensors mentioned above, I plan to add an I2C OLED display if there is time. This would allow for more sophisticated user interaction. If I am not able to integrate this, I will use Neopixel, or some other addressable LED to give user feedback (i.e. finger is moving too much to get an accurate SpO2/heart rate reading). 
 
 In keeping with the requirements of the class, a push button causing an interrupt will signal to the system that a measurement should begin. User feedback will be provided by the above means. 
 
 Two I2C busses are accessible on the module which allows the I2C OLED display to be on a separate bus from the sensors. This is good not only from a mutual exclusion point of view, but to reserve bus bandwidth for the display. 
 
-The IR non-contact temperature sensor can use either I2C or output a PWM signal whose duty cycle correlates with the detected object temperature. My plan is to use the PWM interface with appropriate discrete components (RC network) to allow the signal to be fed to an ADC. This will fulfill another requirement for the final project. 
+The IR non-contact temperature sensor can use either I2C or output a PWM signal whose duty cycle correlates with the detected object temperature. My plan is to use the PWM interface with appropriate discrete components (Low pass filter) to allow the signal to be fed to an ADC. This will fulfill another requirement for the final project. 
 
 ## Software description 
 
-The software for this system will include the standard STM32 HAL for peripheral interfacing and setup, as well as FreeRTOS for task management and inter-task communications. 
+The software for this system will include the standard STM32 HAL for peripheral interfacing and setup, as well as FreeRTOS for task management and inter-task communications. Modules will be implemented in the context of a FreeRTOS task with an initialization method and a "while(1)" task element. 
 
 ### Describe the code in general 
 
@@ -24,8 +24,11 @@ The code will include a state machine driven module for managing the SpO2/heart 
 
 For the User Interface, I plan to use either a text display or Neopixels to inform the user of progress of measurement, measurement results, and any events which the user must respond to (i.e. the SpO2 sensor events described above). There will certainly be another state machine around the color and brightness of the Neopixel if I use that, or what should be displayed on the display if it is utilized. 
 
-For the display, I have found an open source 
+For the display, I have found an open source graphics library called u8g2 
 
+https://github.com/olikraus/u8g2
+
+https://github.com/olikraus/u8g2/wiki
 
 ### Describe the parts you wrote in some detail (maybe 3-5 sentences per module)
 
