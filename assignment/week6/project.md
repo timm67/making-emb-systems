@@ -60,4 +60,8 @@ STM32 HAL Device Driver framework, FreeRTOS, and the display graphics library ar
 
 ### Self assessment of the project: for each criteria, choose a score (1, 2, 3) and explain your reason for the score in 1-2 sentences. 
 
+| Criteria                     | Self Assessment                         | Notes                       |
+|------------------------------|-----------------------------------------|-----------------------------|
+| Project meets minimum goals  | blah blah blah                          |                             |
+
 ### Have you gone beyond the base requirements? How so? 
