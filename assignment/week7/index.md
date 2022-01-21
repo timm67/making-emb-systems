@@ -6,5 +6,5 @@ To start off, make the simplifying assumption that you can issue the 'vend' comm
 
 There are 3 separate state machines, one for each acceptor (bill/coin), and another overall state machine which includes the users product selection. I've drawn out the state machines below. 
 
-![Vending Machine FSM](./vend_mach_fsm.png)
+![Vending Machine FSM](./vend_machine_fsm.png)
 
