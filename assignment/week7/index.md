@@ -1,5 +1,7 @@
 ### Week 7 Homework
 
+Start with an interview question you have asked or one that you’ve been asked (or one from the internet). Then write up what an interviewer would look for in an answer. Be specific about how the interviewer might help the interviewee if they get stuck.
+
 I've had a couple of questions involving 'design this', which implied, at least to me, begin with a state diagram. One was to design an elevator, another a vending machine. I'll choose the vending machine here.
 
 To start off, make the simplifying assumption that you can issue the 'vend' command to another controller with it's own state machine that is responsible for dispensing (vending) the product. In that case, there are two sources of input that the state machine must be concerned with: one is the product selector, and the other is the payment acceptor (used to be bill/coin). We will ignore the credit card acceptor for now, but this could be reduced to an input signal similar to a bill or coin acceptor. 
