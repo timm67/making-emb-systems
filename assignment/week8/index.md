@@ -16,7 +16,7 @@ Note that the current value of the stack is actually `20001f98` because I pushed
 
 Here is the code that I used to get the values above. 
 
-```
+``` cpp
 
 static uint32_t cur_sp;
 
