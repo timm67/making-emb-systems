@@ -1,8 +1,10 @@
 ## Week 8 Assignment
 
-For this assignment, I chose to use a separate STM32 nano board, [Nucleo-G031K8](https://www.st.com/en/evaluation-tools/nucleo-g031k8.html), because the assignment was mainly about reading map/linker files and understanding how memory gets setup for a baremetal programming environment. I am using FreeRTOS for my project and FreeRTOS has it's own heap manager (a selectable algorithm), and has separate stacks for each thread. Each of these stacks is stored in the TCB (task control block). In addition, FreeRTOS has highwater marking available for the heap through an optional config define. 
+Compile your project code so it prints out the heap pointer and the stack pointer. Print out a global variable address. If you can find it, modify your linker file to swap your uninitialized variables and initialized variables. Verify it is as expected in the memory map. See how that changes your code output. 
 
-I looked in the startup file for the [STM32G031K8](https://www.st.com/en/microcontrollers-microprocessors/stm32g031k8.html) , and the linker symbols being used by the startup code and newlib nano to establish the heap and stack are `_end` and `_estack` respectively. I also used inline arm assembly to grab the current stack pointer (r13) and print it out as well. The heap pointer is maintained within newlib. 
+For this assignment, I chose to use a separate STM32 nano board, [Nucleo-G031K8](https://www.st.com/en/evaluation-tools/nucleo-g031k8.html), because the assignment was mainly about reading map/linker files and understanding how the stack and heap gets setup for a baremetal programming environment. I am using FreeRTOS for my project and FreeRTOS has it's own heap manager (a selectable algorithm), and has separate stacks for each thread. The stack pointer for each of these stacks is stored in the TCB (task control block) for each task. In addition, FreeRTOS has highwater marking available for the heap through an optional config define. 
+
+I looked in the startup file for the [STM32G031K8](https://www.st.com/en/microcontrollers-microprocessors/stm32g031k8.html) , and the linker symbols being used by the startup code and newlib nano to establish the heap and stack are `_end` and `_estack` respectively. I printed those and also used inline arm assembly to grab the current stack pointer (r13) and print it out as well. The heap pointer is maintained within newlib. 
 
 ```
 Heap origin:  [20000140]
