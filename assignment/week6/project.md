@@ -65,13 +65,13 @@ STM32 HAL Device Driver framework (https://github.com/STMicroelectronics/STM32Cu
 
 | Criteria                     | Self Assessment                         | Notes                       |
 |------------------------------|-----------------------------------------|-----------------------------|
-| Project meets minimum goals  | blah blah blah                          |                             |
-| Completeness of deliverables | blah blah blah                          |                             |
-| Clear intent / working code  | blah blah blah                          |                             |
-| Reusing Code                 | blah blah blah                          |                             |
-| Originality / scope of goals | blah blah blah                          |                             |
-| Bonus Topics                 | blah blah blah                          |                             |
-| Bonus: version control used  | blah blah blah                          |                             |
+| Project meets minimum goals  |                                         |                             |
+| Completeness of deliverables |                                         |                             |
+| Clear intent / working code  |                                         |                             |
+| Reusing Code                 |                                         |                             |
+| Originality / scope of goals |                                         |                             |
+| Bonus Topics                 |                                         |                             |
+| Bonus: version control used  |                                         |                             |
 
 
 
