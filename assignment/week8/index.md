@@ -14,7 +14,7 @@ Stack origin: [20002000]
 Stack current: [20001fa0]
 ```
 
-Note that the current value of the stack is actually `20001f98` because I pushed two registers onto the stack to get the sp value. 
+Note that the current value of the stack is actually `20001fa8` because I pushed two registers onto the stack to get the sp value. 
 
 Here is the code that I used to get the values above. 
 
