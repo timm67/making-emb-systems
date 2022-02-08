@@ -27,9 +27,9 @@ int is_palindromic(char *str)
   begin = str; end = begin + strlen(str);
   while (begin < end)
   {
-    if (is whitespace(begin))
+    while (is whitespace(begin))
       begin++;
-    if (is_whitespace(end))
+    while (is_whitespace(end))
       end--;
     if (*begin != *end)
       return -1;
