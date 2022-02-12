@@ -22,4 +22,15 @@ The second way to implement it is using a lookup table. I made a lookup table fo
 
 I would favor the iterative approach, as it is relatively fast and requires no added storage. That is not to say that the table driven approach is not without merit. If this were an application like video graphics where performance was paramount and the storage tradeoff was not consequential, there is some time spent iteratively shifting through zeroes to be saved when it is done 8 zeroes at a time (i.e. a byte-wise operation). 
 
+### Sample Run
+```
+Math algorithm homework
+0x8000_0000
+zeros_lookup = 0
+zeros_shift = 0
+0x0000_8000
+zeros_lookup = 16
+zeros_shift = 16
+```
+### Code
 [algo_hw.cpp](./algo_hw/algo_hw.cpp)
